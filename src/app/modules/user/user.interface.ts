@@ -1,6 +1,7 @@
 import { HydratedDocument, Model } from "mongoose";
 
 export interface IUser {
+  id:string;
   role: "student";
   password: string;
   name: {
