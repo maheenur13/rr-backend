@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import app from "./app";
 
 // declaring the port number
-const port: number = 5000;
+const port: number = Number(process.env.PORT) || 5000;
 
 
 //database connection
