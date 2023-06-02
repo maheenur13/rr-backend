@@ -61,15 +61,15 @@ const userSchema = new Schema<IUser,IUserModel,IUserMethods>({
 });
 
 // custom instance method
-userSchema.method("fullName", function () {
-    return this.name.firstName + " " + this.name.lastName;
-})
+// userSchema.method("fullName", function () {
+//     return this.name.firstName + " " + this.name.lastName;
+// })
 
 // custom static method
-userSchema.static("getAdminUsers", async function getAdminUsers() {
+// userSchema.static("getAdminUsers", async function getAdminUsers() {
     
-    return await this.find({role:'admin'})
-})
+//     return await this.find({role:'admin'})
+// })
 
 // creating the model
  const UserModel = model<IUser,IUserModel>('User',userSchema);
