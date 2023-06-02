@@ -12,24 +12,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const app_1 = __importDefault(require("./app"));
-// declaring the port number
-const port = Number(process.env.PORT) || 5000;
-//database connection
-function bootstrap() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield mongoose_1.default.connect("mongodb+srv://rollers-republic:BAVCkousutgI8TyR@RollersRepublic.opkzibp.mongodb.net/RollersRepublic");
-            console.log("Data base connection successful!");
-            app_1.default.listen(port, () => {
-                console.log(`Server is listening on port ${port}`);
-            });
-        }
-        catch (error) {
-            console.log("Failed to connect database", error);
-        }
+const admin_model_1 = __importDefault(require("./admin.model"));
+const admin_utils_1 = require("./admin.utils");
+const createAdminToDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = yield (0, admin_utils_1.generateAdminID)(payload.role);
+    payload.status = "pending";
+    // setting default id for every admin
+    payload.id = id;
+    // defining user model
+    const admin = new admin_model_1.default(payload);
+    return yield admin.save();
+});
+const loginAdminFromDB = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield admin_model_1.default.findOne({
+        phoneNumber: payload.phoneNumber,
+        password: payload.password,
     });
-}
-bootstrap();
-//# sourceMappingURL=server.js.map
+});
+exports.default = {
+    createAdminToDB,
+    loginAdminFromDB,
+};
+//# sourceMappingURL=admin.service.js.map

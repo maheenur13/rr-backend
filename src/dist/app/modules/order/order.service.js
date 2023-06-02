@@ -12,24 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const app_1 = __importDefault(require("./app"));
-// declaring the port number
-const port = Number(process.env.PORT) || 5000;
-//database connection
-function bootstrap() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            yield mongoose_1.default.connect("mongodb+srv://rollers-republic:BAVCkousutgI8TyR@RollersRepublic.opkzibp.mongodb.net/RollersRepublic");
-            console.log("Data base connection successful!");
-            app_1.default.listen(port, () => {
-                console.log(`Server is listening on port ${port}`);
-            });
-        }
-        catch (error) {
-            console.log("Failed to connect database", error);
-        }
-    });
-}
-bootstrap();
-//# sourceMappingURL=server.js.map
+exports.getAllOrdersFromDB = exports.addOrderToDB = void 0;
+const order_model_1 = __importDefault(require("./order.model"));
+const addOrderToDB = (order) => __awaiter(void 0, void 0, void 0, function* () {
+    order.paymentStatus = "pending";
+    const orderModel = new order_model_1.default(Object.assign({}, order));
+    return yield orderModel.save();
+});
+exports.addOrderToDB = addOrderToDB;
+const getAllOrdersFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
+    return yield order_model_1.default.find({});
+});
+exports.getAllOrdersFromDB = getAllOrdersFromDB;
+//# sourceMappingURL=order.service.js.map
