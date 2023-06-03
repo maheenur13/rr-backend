@@ -42,8 +42,20 @@ const loginAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(400).send({ success: false, message: String(error), data: null });
     }
 });
+const getAllAdmin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const response = yield admin_service_1.default.getAllAdminFromDB();
+        if (response) {
+            res.status(200).send({ success: true, message: 'admin found', data: response });
+        }
+    }
+    catch (error) {
+        res.status(400).send({ success: false, message: String(error), data: null });
+    }
+});
 exports.default = {
     createAdmin,
-    loginAdmin
+    loginAdmin,
+    getAllAdmin
 };
 //# sourceMappingURL=admin.controller.js.map

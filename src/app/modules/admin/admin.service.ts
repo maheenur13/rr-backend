@@ -21,7 +21,12 @@ const loginAdminFromDB = async (payload: ILogin): Promise<IAdmin> => {
   });
 };
 
+const getAllAdminFromDB = async (): Promise<IAdmin[]> => {
+  return await AdminModel.find({})
+}
+
 export default {
   createAdminToDB,
   loginAdminFromDB,
+  getAllAdminFromDB
 };

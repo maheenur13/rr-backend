@@ -33,8 +33,20 @@ const loginAdmin = async (req: Request, res: Response) => {
     }
 };
 
+const getAllAdmin = async (req: Request, res: Response) => {
+    try {
+        const response:IAdmin[] = await adminService.getAllAdminFromDB();
+        if(response) {
+            res.status(200).send({success: true,message: 'admin found',data: response});
+        }
+    } catch (error) {
+        res.status(400).send({success: false,message: String(error),data: null});
+    }
+}
+
 
 export default {
     createAdmin,
-    loginAdmin
+    loginAdmin,
+    getAllAdmin
 }

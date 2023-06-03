@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { IOrder } from "./order.interface";
-import { addOrderToDB, getAllOrdersFromDB } from "./order.service";
+import { IOrder, IUpdateStatus } from "./order.interface";
+import { addOrderToDB, getAllOrdersFromDB, updatePaymentStatusToDB } from "./order.service";
 
 export const getAllOrders = async (
   req: Request,
@@ -35,7 +35,7 @@ export const addOrder = async (
   const order: IOrder = req.body;
   try {
     const orderResult: IOrder = await addOrderToDB(order);
-    console.log(orderResult);
+    // console.log(orderResult);
     if (orderResult) {
       res.status(200).send({
         success: true,
@@ -57,3 +57,23 @@ export const addOrder = async (
     });
   }
 };
+
+export const updatePaymentStatus = async (req: Request, res: Response, next: NextFunction):Promise<void> => {
+  const data:IUpdateStatus = req.body;
+  try {
+    const result = await updatePaymentStatusToDB(data);
+    if(result) {
+      res.status(200).json({
+        success:true,
+        message:'updated successfully!',
+        data:null
+      })
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'internal server error',
+      data:null
+    })
+  }
+}

@@ -29,8 +29,12 @@ const loginAdminFromDB = (payload) => __awaiter(void 0, void 0, void 0, function
         password: payload.password,
     });
 });
+const getAllAdminFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
+    return yield admin_model_1.default.find({});
+});
 exports.default = {
     createAdminToDB,
     loginAdminFromDB,
+    getAllAdminFromDB
 };
 //# sourceMappingURL=admin.service.js.map

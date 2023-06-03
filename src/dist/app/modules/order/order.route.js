@@ -8,5 +8,6 @@ const order_controller_1 = require("./order.controller");
 const router = express_1.default.Router();
 router.get("/all-order", order_controller_1.getAllOrders);
 router.post("/add-order", order_controller_1.addOrder);
+router.patch("/update-status", order_controller_1.updatePaymentStatus);
 exports.default = router;
 //# sourceMappingURL=order.route.js.map

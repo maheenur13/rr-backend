@@ -14,6 +14,7 @@ export interface IOrderProduct  {
     quantity: number;
 };
 
+
 export interface IOrder {
     userEmail:string;
     products:IOrderProduct[];
@@ -21,6 +22,11 @@ export interface IOrder {
     paymentStatus:IPayment;
     phoneNumber:string;
     total:number;
+}
+
+export type IUpdateStatus = {
+    status: IPayment;
+    id:string;
 }
 
 export interface IOrderProductModel extends Model<IOrder['products']> {}
